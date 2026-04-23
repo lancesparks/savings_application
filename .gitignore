@@ -11,7 +11,7 @@ src/assets/git.properties.json
 /bazel-out
 
 # dependencies
-/node_modules
+./savings_application_ui/node_modules
 /ng-pub/node_modules
 /sassy-pam/node_modules
 
