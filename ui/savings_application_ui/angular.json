@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "savings_application": {
+    "savings_application_ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -69,10 +69,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "savings_application:build:production"
+              "buildTarget": "savings_application_ui:build:production"
             },
             "development": {
-              "buildTarget": "savings_application:build:development"
+              "buildTarget": "savings_application_ui:build:development"
             }
           },
           "defaultConfiguration": "development"
