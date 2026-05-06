@@ -1,0 +1,48 @@
+<main class="h-screen p-4 2xl:p-24">
+  <div class="h-full grid grid-cols-1 2xl:grid-cols-2">
+    <section class="hidden 2xl:block">
+      <div
+        class="relative flex flex-col justify-between gap-8 w-full h-full px-10 py-5 rounded-[16px] border border-white/30 bg-gradient-to-r from-orange-700 to-orange-400 overflow-hidden"
+      >
+        <!-- empty div to push quote to center -->
+        <div></div>
+        <img
+          src="images/pattern-star-2.svg"
+          alt=""
+          class="absolute bottom-0 right-0 w-96 opacity-5"
+        />
+
+        <p class="font-display text-preset-1 text-neutral-0 relative z-10">
+          "The goal isn't to be rich. It's to have enough."
+        </p>
+
+        <span class="text-preset-5 text-neutral-0 relative z-10">— Morgan Housel</span>
+      </div>
+    </section>
+    <section class="p-6 2xl:p-24">
+      <div class="flex flex-col gap-4 h-full justify-center">
+        <div class="heading flex flex-col gap-2 border-b border-neutral-400 pb-4">
+          <h4 class="flex items-center">
+            <img src="images/logo-small.svg" alt="" /> Savings Tracker
+          </h4>
+          <h1 class="font-display text-preset-1-mb 2xl:text-preset-2 text-neutral-0">
+            Welcome Back
+          </h1>
+          <p class="text-preset-5 text-neutral-400">Sign in to your account</p>
+        </div>
+        <div class="controls flex flex-col pt-6 gap-8">
+          <app-input [label]="'Email Address'"></app-input>
+          <app-input [label]="'Password'"></app-input>
+          <app-button [buttonText]="'Sign In'"></app-button>
+          <p class="flex self-center text-neutral-400">
+            Don't have an account?
+            <span
+              class="text-neutral-0 border-b border-neutral-0 ml-2 hover:text-neutral-400 hover:border-neutral-400 transition-colors cursor-pointer"
+              >Create one</span
+            >
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

@@ -1,0 +1,13 @@
+<div class="flex flex-col gap-2">
+  <p>{{ label() }}</p>
+  <div
+    class="flex items-center gap-3 px-4 h-[54px] w-full bg-neutral-700 border border-neutral-500 rounded-[6px]"
+  >
+    <input class="bg-transparent text-neutral-0 outline-none w-full text-preset-5" />
+  </div>
+  @if (label() === 'Password') {
+    <span class="flex self-end text-neutral-400 cursor-pointer hover:text-neutral-0"
+      >Forgot password?</span
+    >
+  }
+</div>
