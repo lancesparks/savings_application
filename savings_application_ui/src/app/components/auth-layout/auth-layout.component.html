@@ -1,0 +1,23 @@
+<main class="h-screen p-4 2xl:p-24">
+  <div class="h-full grid grid-cols-1 2xl:grid-cols-2">
+    <section class="hidden 2xl:block">
+      <app-hero [heroQuote]="heroQuote()"> </app-hero>
+    </section>
+    <section class="p-6 2xl:p-24">
+      <div class="flex flex-col gap-4 h-full justify-center">
+        <div class="heading flex flex-col gap-2 border-b border-neutral-400 pb-4">
+          <h4 class="flex items-center">
+            <img src="images/logo-small.svg" alt="" /> Savings Tracker
+          </h4>
+          <h1 class="font-display text-preset-1-mb 2xl:text-preset-2 text-neutral-0">
+            {{ pageTitle() }}
+          </h1>
+          <p class="text-preset-5 text-neutral-400">{{ pageSubTitle() }}</p>
+        </div>
+        <div class="controls flex flex-col pt-6 gap-8">
+          <ng-content />
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

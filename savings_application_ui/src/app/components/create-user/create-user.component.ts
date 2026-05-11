@@ -5,42 +5,40 @@ import { RoutingService } from '../../services/routing-service';
 import { AuthLayoutComponent } from '../auth-layout/auth-layout.component';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
-import { LoginCredentials, TokenResponse } from '../../types';
+import { User } from '../../types';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-create-user',
   imports: [AuthLayoutComponent, InputComponent, ButtonComponent, ReactiveFormsModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  templateUrl: './create-user.component.html',
+  styleUrl: './create-user.component.css',
 })
-export class LoginComponent {
-  heroQuote = { quote: `The goal isn't to be rich. It's to have enough.`, person: 'Morgan Housel' };
+export class CreateUserComponent {
   private rs: RoutingService = inject(RoutingService);
   private as: AuthService = inject(AuthService);
 
-  loginUserForm = new FormGroup({
-    username: new FormControl('', [Validators.required]),
+  createUserForm = new FormGroup({
+    first_name: new FormControl('', [Validators.required]),
+    last_name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
   });
 
+  heroQuote = {
+    quote: `Do not save what is left after spending, but spend what is left after saving.`,
+    person: 'Warren Buffet',
+  };
+
   submitted = signal(false);
 
-  navigateToPage(e: boolean | MouseEvent, page: string) {
-    this.rs.routeToPage(page);
+  navigateToPage() {
+    this.rs.routeToPage('/');
   }
 
-  login() {
+  onSubmit() {
     this.submitted.set(true);
-
-    if (this.loginUserForm.valid) {
-      this.as.login(this.loginUserForm.value as LoginCredentials).subscribe({
-        next: (res: TokenResponse) => {
-          this.as.setToken(res.access_token as string);
-        },
-        error: (e) => {
-          console.log(e);
-        },
-      });
+    if (this.createUserForm.valid) {
+      this.as.createUser(this.createUserForm.value as User).subscribe((data) => console.log(data));
     }
   }
 }

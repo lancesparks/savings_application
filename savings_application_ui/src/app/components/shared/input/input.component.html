@@ -3,11 +3,31 @@
   <div
     class="flex items-center gap-3 px-4 h-[54px] w-full bg-neutral-700 border border-neutral-500 rounded-[6px]"
   >
-    <input class="bg-transparent text-neutral-0 outline-none w-full text-preset-5" />
+    @if (control()) {
+      <input
+        class="bg-transparent text-neutral-0 outline-none w-full text-preset-5"
+        [type]="label() === 'Password' && !showPassword() ? 'password' : 'text'"
+        [formControl]="control()!"
+      />
+    } @else {
+      <input
+        class="bg-transparent text-neutral-0 outline-none w-full text-preset-5"
+        [type]="label() === 'Password' && !showPassword() ? 'password' : 'text'"
+      />
+    }
+    @if (label() === 'Password') {
+      <span class="cursor-pointer text-neutral-400 hover:text-neutral-0" (click)="togglePassword()">
+        {{ showPassword() ? '🙈' : '👁️' }}
+      </span>
+    }
   </div>
-  @if (label() === 'Password') {
-    <span class="flex self-end text-neutral-400 cursor-pointer hover:text-neutral-0"
-      >Forgot password?</span
-    >
+
+  @if (control()?.invalid && submitted()) {
+    @if (control()?.hasError('required')) {
+      <span class="text-red-500 text-sm">This field is required</span>
+    }
+    @if (control()?.hasError('email')) {
+      <span class="text-red-500 text-sm">Please enter a valid email address</span>
+    }
   }
 </div>
