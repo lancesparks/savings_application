@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../environment/environment';
 import { LoginCredentials, TokenResponse, User } from '../types/index';
+import { PlatformService } from './platform-service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,7 @@ import { LoginCredentials, TokenResponse, User } from '../types/index';
 export class AuthService {
   private http: HttpClient = inject(HttpClient);
   private href = environment.settings.baseHref;
+  private ps = inject(PlatformService);
 
   public createUser(params: User) {
     return this.http.post(`${this.href}/user`, params, { observe: 'response' });
@@ -24,14 +26,21 @@ export class AuthService {
   }
 
   public setToken(token: string) {
-    localStorage.setItem('token', token);
+    if (this.ps.isBrowser()) {
+      localStorage.setItem('token', token);
+    }
   }
 
   public getToken(): string | null {
-    return localStorage.getItem('token');
+    if (this.ps.isBrowser()) {
+      return localStorage.getItem('token');
+    }
+    return null;
   }
 
   public logout() {
-    localStorage.removeItem('token');
+    if (this.ps.isBrowser()) {
+      localStorage.removeItem('token');
+    }
   }
 }

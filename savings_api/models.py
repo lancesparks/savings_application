@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Numeric, Date, DateTime, ForeignKey, Text
+from sqlalchemy import Column, String, Numeric, Date, DateTime, ForeignKey, Text,Boolean
 from sqlalchemy.orm import relationship
 from database import Base
 from datetime import datetime
@@ -17,6 +17,8 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     goals = relationship("Goal", back_populates="user", cascade="all, delete")
+    deposits = relationship("Deposit", back_populates="user", cascade="all, delete")  # add this
+
 
 
 class Goal(Base):
@@ -26,6 +28,7 @@ class Goal(Base):
     user_id = Column(String(36), ForeignKey("users.id"), nullable=False)
     name = Column(String(255), nullable=False)
     target = Column(Numeric(10, 2), nullable=False)
+    is_featured = Column(Boolean, default=False, nullable=False)
     deadline = Column(Date, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
@@ -37,9 +40,11 @@ class Deposit(Base):
     __tablename__ = "deposits"
 
     id = Column(String(36), primary_key=True, index=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(String(36), ForeignKey("users.id"), nullable=False)
     goal_id = Column(String(36), ForeignKey("goals.id"), nullable=False)
     amount = Column(Numeric(10, 2), nullable=False)
     note = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     goal = relationship("Goal", back_populates="deposits")
+    user = relationship("User", back_populates="deposits")

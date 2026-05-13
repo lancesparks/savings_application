@@ -36,10 +36,9 @@ export class LoginComponent {
       this.as.login(this.loginUserForm.value as LoginCredentials).subscribe({
         next: (res: TokenResponse) => {
           this.as.setToken(res.access_token as string);
+          this.rs.routeToPage('/dashboard');
         },
-        error: (e) => {
-          console.log(e);
-        },
+        error: (e) => {},
       });
     }
   }

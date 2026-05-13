@@ -1,5 +1,13 @@
 <button
-  class="w-full h-[54px] bg-orange-400 text-neutral-0 font-body text-preset-5 rounded-full px-5 py-3 cursor-pointer hover:bg-orange-500 transition-colors"
+  class="w-full h-[48px] text-neutral-0 font-body text-preset-5 rounded-full px-5 py-3 cursor-pointer transition-colors flex items-center justify-center gap-[10px]"
+  [class]="
+    variant() === 'secondary'
+      ? 'bg-neutral-700 hover:bg-neutral-600 text-neutral-400'
+      : 'bg-orange-400 hover:bg-orange-500'
+  "
 >
+  @if (icon()) {
+    <span><img class="brightness-0 invert opacity-60" [src]="icon()" alt="" /></span>
+  }
   {{ buttonText() }}
 </button>

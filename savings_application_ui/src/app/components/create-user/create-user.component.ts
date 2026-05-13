@@ -31,14 +31,19 @@ export class CreateUserComponent {
 
   submitted = signal(false);
 
-  navigateToPage() {
-    this.rs.routeToPage('/');
+  navigateToPage(page: string) {
+    this.rs.routeToPage(page);
   }
 
   onSubmit() {
     this.submitted.set(true);
     if (this.createUserForm.valid) {
-      this.as.createUser(this.createUserForm.value as User).subscribe((data) => console.log(data));
+      this.as.createUser(this.createUserForm.value as User).subscribe({
+        next: () => {
+          this.navigateToPage('/');
+        },
+        error: (e) => console.log(e),
+      });
     }
   }
 }

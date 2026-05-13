@@ -8,4 +8,6 @@ import { Component, input } from '@angular/core';
 })
 export class ButtonComponent {
   buttonText = input<string>();
+  variant = input<'primary' | 'secondary'>('primary');
+  icon = input<string>();
 }

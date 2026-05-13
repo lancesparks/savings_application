@@ -1,0 +1,15 @@
+<p-dialog
+  [modal]="true"
+  [visible]="showModal()"
+  [style]="{ width: '30rem' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="closeModal()"
+>
+  <div class="flex flex-col pb-[48px] justify-center">
+    <h3 class="self-center">{{ modalMessage() }}</h3>
+  </div>
+  <div class="flex justify-center">
+    <app-button buttonText="OK" (click)="closeModal()" />
+  </div>
+</p-dialog>

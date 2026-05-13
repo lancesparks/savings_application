@@ -121,3 +121,118 @@
     font-family: var(--font-body);
   }
 }
+
+:root {
+  --p-mask-background: rgba(0, 0, 0, 0.8);
+}
+
+.p-dialog {
+  background-color: #1c1c1c !important;
+  border: 1px solid #2a2a2a !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+}
+
+.p-dialog .p-dialog-header {
+  background-color: #1c1c1c !important;
+  color: white !important;
+  border-bottom: none !important;
+  padding: 1.5rem 1.5rem 0.5rem !important;
+}
+
+.p-dialog .p-dialog-content {
+  background-color: #1c1c1c !important;
+  color: white !important;
+  padding: 1rem 1.5rem 1.5rem !important;
+}
+
+.p-dialog .p-dialog-header-icon {
+  color: #6b6b6b !important;
+}
+
+.p-dialog .p-dialog-header-icon:hover {
+  color: white !important;
+  background: transparent !important;
+}
+
+.p-datepicker-input {
+  background: transparent !important;
+  border: none !important;
+  color: white !important;
+  outline: none !important;
+  width: 100% !important;
+}
+
+.p-datepicker-input::placeholder {
+  color: #6b6b6b !important;
+}
+
+.p-datepicker-panel {
+  background-color: #1c1c1c !important;
+  border: 1px solid #2a2a2a !important;
+  border-radius: 12px !important;
+  color: white !important;
+}
+
+.p-datepicker-header {
+  background-color: #1c1c1c !important;
+  color: white !important;
+  border-bottom: 1px solid #2a2a2a !important;
+}
+
+.p-datepicker-title {
+  color: white !important;
+}
+
+.p-datepicker-nav-button {
+  color: white !important;
+  background: transparent !important;
+}
+
+.p-day-cell-inner {
+  color: white !important;
+  border-radius: 8px !important;
+}
+
+.p-day-cell-inner:hover {
+  background-color: #2a2a2a !important;
+}
+
+.p-datepicker-today .p-day-cell-inner {
+  background-color: #2a2a2a !important;
+}
+
+.p-datepicker-day-selected .p-day-cell-inner {
+  background-color: #f97316 !important;
+  color: white !important;
+}
+
+.p-datepicker-weekday {
+  color: #6b6b6b !important;
+}
+
+.p-datepicker-trigger {
+  color: #6b6b6b !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.p-datepicker {
+  width: 100% !important;
+}
+
+.p-datepicker-input {
+  width: 100% !important;
+  height: 54px !important;
+  background-color: #2a2a2a !important;
+  border: 1px solid #3a3a3a !important;
+  border-radius: 8px !important;
+  color: white !important;
+  padding: 0 2.5rem !important;
+  outline: none !important;
+  cursor: pointer !important;
+}
+
+.p-datepicker-input::placeholder {
+  color: #6b6b6b !important;
+}

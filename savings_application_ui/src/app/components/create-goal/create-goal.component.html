@@ -1,0 +1,59 @@
+<p-dialog
+  header="New goal"
+  [modal]="true"
+  [visible]="visible()"
+  [style]="{ width: '30rem' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="closeModal()"
+>
+  <div class="flex flex-col gap-6 py-2">
+    <!-- Goal name -->
+    <div class="flex flex-col gap-2">
+      <app-input
+        label="Goal Name"
+        placeHolder="e.g. MacBook Pro M4"
+        [control]="createGoalForm.controls.name"
+      ></app-input>
+    </div>
+
+    <!-- Target amount -->
+    <div class="flex flex-col gap-2">
+      <app-input
+        label="Target amount"
+        placeHolder="0.00"
+        [control]="createGoalForm.controls.target"
+        [numericOnly]="true"
+      ></app-input>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <app-input
+        label="Current amount"
+        placeHolder="0.00"
+        [control]="createGoalForm.controls.initial_amount"
+        [numericOnly]="true"
+      ></app-input>
+    </div>
+
+    <!-- Deadline -->
+    <div class="flex flex-col gap-2 cursor-pointer">
+      <label class="text-neutral-400 text-sm">Deadline (optional)</label>
+
+      <p-datepicker
+        [formControl]="createGoalForm.controls.deadline"
+        [selectOtherMonths]="true"
+        [iconDisplay]="'input'"
+        [showIcon]="true"
+        appendTo="body"
+        inputId="icondisplay"
+      ></p-datepicker>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex gap-3 justify-end pt-2">
+      <app-button buttonText="Cancel" variant="secondary" (click)="closeModal()" />
+      <app-button buttonText="Create goal" (click)="createNewGoal()" />
+    </div>
+  </div>
+</p-dialog>

@@ -7,6 +7,7 @@
       <input
         class="bg-transparent text-neutral-0 outline-none w-full text-preset-5"
         [type]="label() === 'Password' && !showPassword() ? 'password' : 'text'"
+        (keydown)="onKeyDown($event)"
         [formControl]="control()!"
       />
     } @else {

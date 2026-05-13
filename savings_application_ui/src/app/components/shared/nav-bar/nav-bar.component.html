@@ -1,0 +1,16 @@
+<nav class="w-full px-6 py-4 flex items-center justify-between border-b border-neutral-400 pb-4">
+  <!-- Logo -->
+  <div class="flex items-center gap-2">
+    <img src="images/logo-small.svg" alt="Savings Tracker" class="w-7 h-7" />
+    <span class="text-neutral-0 font-semibold text-lg hidden sm:block">Savings Tracker</span>
+  </div>
+
+  <!-- New Goal Button -->
+  <button
+    class="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 transition-colors text-white font-medium px-4 py-2 rounded-full cursor-pointer"
+    (click)="createGoal()"
+  >
+    <span class="text-xl leading-none">+</span>
+    <span class="hidden sm:block">New goal</span>
+  </button>
+</nav>

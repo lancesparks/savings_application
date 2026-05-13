@@ -1,0 +1,17 @@
+<div
+  class="rounded-xl p-6 flex flex-col gap-4 cursor-pointer transition-colors"
+  [class]="featured() ? 'bg-orange-500 md:col-span-2' : 'bg-neutral-800'"
+>
+  <div class="flex items-center justify-between">
+    <p [class]="featured() ? 'text-white' : 'text-neutral-400'" class="text-sm">
+      {{ title() }}
+    </p>
+  </div>
+
+  <h2
+    class="text-4xl font-bold"
+    [class]="featured() ? 'text-white' : completed() ? 'text-green-500' : 'text-orange-500'"
+  >
+    {{ cardData() }}
+  </h2>
+</div>

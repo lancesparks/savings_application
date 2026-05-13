@@ -1,0 +1,73 @@
+<app-nav-bar (emitCreateNewGoal)="openCreateGoal($event)"></app-nav-bar>
+<div class="min-h-screen bg-neutral-900 flex flex-col gap-6 p-6">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <app-info-card
+      title="Total Savings"
+      cardData="$12,000.00"
+      [class.md:col-span-2]="true"
+    ></app-info-card>
+    <app-info-card title="Active Goals" cardData="7" [featured]="false"></app-info-card>
+
+    <app-info-card
+      title="Completed Goals"
+      cardData="2"
+      [completed]="true"
+      [featured]="false"
+    ></app-info-card>
+  </div>
+
+  <!-- Chart -->
+  <div class="bg-neutral-800 rounded-xl p-6">
+    <p class="text-white text-sm mb-4">Monthly deposits</p>
+    <!-- chart goes here -->
+  </div>
+
+  <!-- Goals section -->
+  <div class="flex flex-col gap-4 flex-1">
+    <div class="flex items-center justify-between">
+      <h3 class="text-white font-semibold text-preset-2">Your goals</h3>
+      <div class="flex gap-2">
+        <app-button
+          buttonText="Filters"
+          icon="images/icon-filter.svg"
+          variant="secondary"
+        ></app-button>
+
+        <app-button
+          buttonText="Sort by"
+          icon="images/icon-sort.svg"
+          variant="secondary"
+        ></app-button>
+      </div>
+    </div>
+
+    <!-- Goals grid -->
+    @if (goals().length > 0) {
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        @for (goal of goals(); track goal) {
+          <app-goal-card [goal]="goal"></app-goal-card>
+        }
+      </div>
+    } @else {
+      <div class="grid grid-cols-1 flex-1">
+        <app-no-goals (createGoal)="openCreateGoal($event)"></app-no-goals>
+      </div>
+    }
+  </div>
+
+  @if (visible() && !showModal()) {
+    <app-create-goal
+      [visible]="visible()"
+      (visibleChange)="openCreateGoal($event)"
+      (emitCreateGoal)="createNewGoal($event)"
+    ></app-create-goal>
+  }
+
+  @if (showModal()) {
+    <app-modal
+      [modalMessage]="modalMessage()"
+      [showModal]="showModal()"
+      (showModalChange)="closeModals()"
+    ></app-modal>
+  }
+</div>
