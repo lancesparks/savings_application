@@ -18,9 +18,6 @@ export class GoalCardComponent {
   );
 
   constructor() {
-    effect(() => {
-      console.log(this.totalDeposits(), this.goal());
-      console.log(this.totalDeposits()! / this.goal().target);
-    });
+    effect(() => {});
   }
 }

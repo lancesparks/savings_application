@@ -8,7 +8,7 @@ import { NoGoalsComponent } from '../no-goals/no-goals.component';
 import { ButtonComponent } from '../shared/button/button.component';
 import { Goal, GoalForm } from '../../types';
 import { GoalService } from '../../services/goal-service';
-import { take, tap } from 'rxjs';
+import { take } from 'rxjs';
 import { PlatformService } from '../../services/platform-service';
 import { InfoCardComponent } from '../shared/info-card/info-card.component';
 import { ModalComponent } from '../shared/modal/modal.component';
@@ -43,6 +43,7 @@ export class DashboardComponent {
   }
 
   openCreateGoal(e: boolean) {
+    console.log(e);
     this.visible.set(e);
   }
 
@@ -54,6 +55,7 @@ export class DashboardComponent {
       target: parseFloat(goal.target!) as number,
       initial_amount: !goal.initial_amount ? 0 : parseFloat(goal.initial_amount!),
       deadline: goal.deadline === '' ? null : this.gs.getDateString(goal.deadline as Date),
+      is_featured: goal.is_featured,
     };
     this.gs
       .createGoal(newGoal)

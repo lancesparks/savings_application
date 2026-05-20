@@ -21,9 +21,10 @@ export class GoalService {
   }
 
   public getGoals(): Observable<Goal[]> {
-    return this.http
-      .get<Goal[]>(`${this.href}/goals`)
-      .pipe(tap((goals) => this.goalsSubject.next(goals)));
+    return this.http.get<Goal[]>(`${this.href}/goals`).pipe(
+      tap((goals) => this.goalsSubject.next(goals)),
+      tap((data) => console.log(data)),
+    );
   }
 
   public getDateString(date: Date): string {

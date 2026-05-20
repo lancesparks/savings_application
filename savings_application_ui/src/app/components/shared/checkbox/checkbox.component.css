@@ -1,0 +1,12 @@
+::ng-deep {
+  .p-checkbox-checked .p-checkbox-box {
+    border-color: red !important;
+    background: red !important;
+  }
+}
+
+.checkbox_container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}

@@ -1,0 +1,8 @@
+<div class="checkbox_container">
+  <p-checkbox [id]="checkboxID()" [formControl]="control()!" [binary]="true" />
+  @if (checkboxLabel()) {
+    <label class="checkbox_label" [for]="checkboxID()">
+      {{ checkboxLabel() }}
+    </label>
+  }
+</div>

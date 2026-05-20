@@ -1,7 +1,5 @@
 import { Component, input, output, signal } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
-import { ButtonComponent } from '../shared/button/button.component';
-import { InputComponent } from '../shared/input/input.component';
 import { DatePickerModule } from 'primeng/datepicker';
 import {
   FormControl,
@@ -11,6 +9,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { GoalForm } from '../../types';
+import { CheckboxComponent } from '../shared/checkbox/checkbox.component';
+import { ButtonComponent } from '../shared/button/button.component';
+import { InputComponent } from '../shared/input/input.component';
 
 @Component({
   selector: 'app-create-goal',
@@ -21,6 +22,7 @@ import { GoalForm } from '../../types';
     DatePickerModule,
     ReactiveFormsModule,
     FormsModule,
+    CheckboxComponent,
   ],
   templateUrl: './create-goal.component.html',
   styleUrl: './create-goal.component.css',
@@ -35,6 +37,7 @@ export class CreateGoalComponent {
     target: new FormControl('', [Validators.required]),
     initial_amount: new FormControl(null),
     deadline: new FormControl(''), // optional so no Validators.required
+    is_featured: new FormControl(false),
   });
 
   closeModal() {

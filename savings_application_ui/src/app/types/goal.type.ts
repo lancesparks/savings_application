@@ -4,6 +4,7 @@ export interface Goal {
   initial_amount?: number | null;
   deadline?: string | Date | null;
   deposits?: Deposit[] | [];
+  is_featured: boolean;
 }
 
 export interface GoalForm {
@@ -11,6 +12,7 @@ export interface GoalForm {
   target: string;
   initial_amount: string;
   deadline: string | Date;
+  is_featured: boolean;
 }
 
 export interface Deposit {
