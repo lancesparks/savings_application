@@ -5,7 +5,7 @@
     [ngClass]="{ 'justify-between': isTall() }"
   >
     <div class="flex items-center justify-between">
-      <p [class]="featured() ? 'text-white' : 'text-neutral-400'" class="text-preset-5">
+      <p class="text-neutral-0 text-preset-5">
         {{ goal().name }}
       </p>
       @if (goalCompleted()) {
@@ -33,18 +33,17 @@
         ></div>
       </div>
 
-      <div
-        class="flex items-center gap-2 text-xs"
-        [class]="featured() ? 'text-white/70' : 'text-neutral-400'"
-      >
-        <span>${{ totalDeposits() }} of ${{ goal().target }}</span>
+      <div class="flex items-center gap-2 text-preset-6">
+        <span class="text-neutral-0">${{ totalDeposits() }} of ${{ goal().target }}</span>
 
         @if (goal().deadline) {
-          <span>•</span>
-          <span>Due {{ goal().deadline | date: 'dd MMM yyyy' }}</span>
+          <span [class]="featured() ? 'text-neutral-0' : 'text-neutral-300'">•</span>
+          <span [class]="featured() ? 'text-neutral-0' : 'text-neutral-300'"
+            >Due {{ goal().deadline | date: 'dd MMM yyyy' }}</span
+          >
         } @else {
-          <span>•</span>
-          <span>No deadline</span>
+          <span [class]="featured() ? 'text-neutral-0' : 'text-neutral-300'">•</span>
+          <span [class]="featured() ? 'text-neutral-0' : 'text-neutral-300'">No deadline</span>
         }
       </div>
     </section>
