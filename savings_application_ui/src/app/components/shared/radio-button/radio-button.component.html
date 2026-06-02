@@ -1,0 +1,18 @@
+<label class="flex items-center gap-3 cursor-pointer">
+  <input
+    [checked]="currentValue() === options().value"
+    type="radio"
+    name="filter"
+    [value]="options().label"
+    class="appearance-none w-5 h-5 rounded-full border-2 border-neutral-600 checked:relative cursor-pointer checked:bg-neutral-900 [&:checked]:shadow-[inset_0_0_0_4px_theme(colors.neutral.900)] [&:checked]:bg-orange-400"
+    (click)="handleChecked($event)"
+  />
+  <span
+    class="text-preset-6"
+    [ngClass]="{
+      'text-neutral-0': currentValue() === options().value,
+      'text-neutral-300': currentValue() !== options().value,
+    }"
+    >{{ options().label }}</span
+  >
+</label>

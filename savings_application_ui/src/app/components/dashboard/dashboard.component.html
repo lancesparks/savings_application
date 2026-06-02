@@ -3,23 +3,41 @@
   <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
     <app-info-card
       title="Total Savings"
-      cardData="$12,000.00"
+      [cardData]="totalSavings().toString()"
+      [displayMoney]="true"
       [class.md:col-span-2]="true"
     ></app-info-card>
-    <app-info-card title="Active Goals" cardData="7" [featured]="false"></app-info-card>
+    <app-info-card
+      class="relative overflow-hidden"
+      title="Active Goals"
+      [cardData]="goals().length.toString()"
+      [featured]="false"
+    >
+      <img src="images/pattern-star.svg" alt="" class="absolute bottom-[-55%] -right-[10%] w-50" />
+    </app-info-card>
 
     <app-info-card
+      class="relative overflow-hidden"
       title="Completed Goals"
-      cardData="2"
+      [cardData]="completedGoals().toString()"
       [completed]="true"
       [featured]="false"
-    ></app-info-card>
+    >
+      <img src="images/pattern-star.svg" alt="" class="absolute bottom-[-55%] -right-[10%] w-50" />
+    </app-info-card>
   </div>
 
   <!-- Chart -->
-  <div class="bg-neutral-800 rounded-xl p-6">
-    <p class="text-white text-sm mb-4">Monthly deposits</p>
+  <div class="bg-neutral-800 rounded-xl">
     <!-- chart goes here -->
+
+    <app-info-card title="Monthly deposits" [completed]="false" [featured]="false">
+      @if (!deposits()) {
+        <p class="text-neutral-300 text-preset-5 align-center">No deposits yet</p>
+      } @else {
+        <app-bar-chart [barChartData]="deposits()"></app-bar-chart>
+      }
+    </app-info-card>
   </div>
 
   <!-- Goals section -->
@@ -31,21 +49,88 @@
           buttonText="Filters"
           icon="images/icon-filter.svg"
           variant="secondary"
+          (click)="filters.toggle($event)"
         ></app-button>
+        <div class="card flex justify-center">
+          <p-popover #filters>
+            <ng-template #content>
+              <div class="p-2 flex flex-col gap-3 min-w-[200px]">
+                <p class="text-neutral-300 text-xs font-semibold tracking-wider uppercase mb-1">
+                  Filter by status
+                </p>
+
+                @for (option of filterOptions; track option) {
+                  <app-radio-button
+                    [options]="option"
+                    [currentValue]="activeFilter()"
+                    (emitChecked)="filterItems($event)"
+                  >
+                  </app-radio-button>
+                }
+              </div>
+            </ng-template>
+          </p-popover>
+        </div>
 
         <app-button
           buttonText="Sort by"
           icon="images/icon-sort.svg"
           variant="secondary"
+          (click)="sort.toggle($event)"
+        ></app-button>
+        <div class="card flex justify-center">
+          <p-popover #sort>
+            <ng-template #content>
+              <div class="p-2 flex flex-col gap-3 min-w-[200px]">
+                <p class="text-neutral-300 text-xs font-semibold tracking-wider uppercase mb-1">
+                  Sort by
+                </p>
+
+                @for (option of sortOptions; track option) {
+                  <app-radio-button
+                    [options]="option"
+                    [currentValue]="activeSort()"
+                    (emitChecked)="sortItems($event)"
+                  >
+                  </app-radio-button>
+                }
+              </div>
+            </ng-template>
+          </p-popover>
+        </div>
+
+        <app-button
+          buttonText="Clear"
+          icon="images/clear-icon.svg"
+          variant="secondary"
+          (click)="clearFilters()"
         ></app-button>
       </div>
     </div>
 
     <!-- Goals grid -->
-    @if (goals().length > 0) {
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        @for (goal of goals(); track goal) {
-          <app-goal-card [goal]="goal" [featured]="goal.is_featured"></app-goal-card>
+    @if (filteredGoals().length > 0) {
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 auto-rows-[190px]">
+        @for (goal of filteredGoals(); track goal; let i = $index) {
+          @if (i > 0) {
+            <app-goal-card
+              [class.lg:col-span-2]="goal.is_featured"
+              [class.md:col-span-2]="goal.is_featured"
+              [class.lg:row-span-2]="i % 3 === 0"
+              [isTall]="i % 3 === 0"
+              [goal]="goal"
+              [featured]="goal.is_featured"
+              (click)="viewGoalDetails(goal)"
+            ></app-goal-card>
+          } @else {
+            <app-goal-card
+              [class.lg:col-span-2]="goal.is_featured"
+              [class.md:col-span-2]="goal.is_featured"
+              [goal]="goal"
+              [featured]="goal.is_featured"
+              (click)="viewGoalDetails(goal)"
+            ></app-goal-card>
+          }
         }
       </div>
     } @else {

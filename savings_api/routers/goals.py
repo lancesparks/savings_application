@@ -54,6 +54,11 @@ def get_goal_by_id(user:user_dependency, db: db_dependency, goal_id:str):
     if goal is None:
         raise HTTPException(status_code=404, detail="Item not found")
     
+  
+    
+    goal.deposits.sort(key=lambda d: d.created_at, reverse=True)
+    print([(d.note, d.created_at) for d in goal.deposits])
+    db.expunge_all()
     return goal
   
 

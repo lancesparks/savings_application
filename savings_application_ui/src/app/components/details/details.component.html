@@ -1,0 +1,197 @@
+<app-nav-bar (emitCreateNewGoal)="viewCreateGoal(true)"></app-nav-bar>
+<div class="p-10">
+  <div class="details-page-header grid gap-8">
+    <div class="section flex justify-between">
+      <button
+        class="flex justify-center align-center gap-2 text-neutral-400 text-preset-5 cursor-pointer"
+        (click)="navigateToDashboard()"
+      >
+        <img src="images/icon-chevron-left.svg" alt="" />Back
+      </button>
+
+      <div class="section flex gap-4">
+        <button class="text-netrual-0 text-preset-5 cursor-pointer" (click)="viewEditGoal(true)">
+          Edit Goal
+        </button>
+        <button class="text-red-500 text-preset-5 cursor-pointer" (click)="viewDeleteGoal(true)">
+          Delete Goal
+        </button>
+      </div>
+    </div>
+    <div class="section">
+      <h1 class="text-neutral-0 text-preset-1 mb-2">{{ selectedGoal()?.name }}</h1>
+      <section class="flex items-center gap-2">
+        @if (selectedGoal()?.deadline) {
+          <span class="text-neutral-400 text-preset-5"
+            >Deadline {{ selectedGoal()?.deadline | date: 'MMM d, y' }}</span
+          >
+          <span class="text-neutral-400">•</span>
+        }
+        <span class="text-neutral-400 text-preset-5"
+          >Created {{ selectedGoal()?.created_at | date: 'MMM d, y' }}</span
+        >
+      </section>
+    </div>
+  </div>
+
+  <div class="pageDetails grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8 mt-8">
+    @if (!goalCompleted() && selectedGoal()) {
+      <div class="grid gap-8">
+        <app-info-card [detailsPage]="true" [featured]="false">
+          <div class="flex flex-col gap-4">
+            <div class="flex justify-between">
+              <h2 class="text-preset-1 font-bold text-orange-400">
+                {{ (totalDeposits()! / selectedGoal()!.target) * 100 | number: '1.0-0' }}%
+              </h2>
+
+              <h2 class="text-neutral-300 text-preset-5">
+                {{ selectedGoal()!.target - totalDeposits() | currency }} remaining
+              </h2>
+            </div>
+
+            <div class="w-full h-1 rounded-full bg-neutral-600">
+              <div
+                class="h-1 rounded-full bg-orange-500 max-w-full"
+                [style.width.%]="(totalDeposits()! / selectedGoal()!.target) * 100"
+              ></div>
+            </div>
+
+            <div class="flex justify-between">
+              <h2 class="flex flex-col text-neutral-0 text-preset-6">
+                {{ totalDeposits() | currency }}
+                <span class="text-neutral-300 text-preset-6">Saved so far</span>
+              </h2>
+              <h2 class="flex flex-col text-neutral-0 text-preset-6">
+                of {{ selectedGoal()!.target | currency }}
+                <span class="self-end text-neutral-300 text-preset-6">Target</span>
+              </h2>
+            </div>
+          </div>
+        </app-info-card>
+
+        <div class="addDeposit grid">
+          <app-info-card [detailsPage]="true" [featured]="false">
+            <div class="mb-4">
+              <h1 class="text-neutral-0 text-preset-4">Add deposit</h1>
+              @if (depositError()) {
+                <span class="text-red-500 text-preset-6">{{ depositError() }}</span>
+              }
+            </div>
+            <div class="grid gap-6">
+              <app-input
+                label="Amount"
+                [placeHolder]="'0.00'"
+                [numericOnly]="true"
+                [isMoney]="true"
+                [control]="createDepositForm.controls.amount"
+              ></app-input>
+
+              <app-input
+                label="Note (optional)"
+                placeHolder="e.g Monthly Savings"
+                [control]="createDepositForm.controls.note"
+              ></app-input>
+
+              <app-button buttonText="Add funds" (click)="addFunds()" />
+            </div>
+          </app-info-card>
+        </div>
+      </div>
+    } @else {
+      <div class="bg-orange-500 rounded-2xl p-6 text-white">
+        <div class="w-12 h-12 rounded-full bg-white/25 flex items-center justify-center mb-5">
+          <img src="images/icon-checkmark.svg" class="w-6 h-6" />
+        </div>
+
+        <p class="text-5xl font-bold mb-1">100%</p>
+        <p class="font-semibold mb-1">Goal complete</p>
+        <p class="text-preset-5 opacity-85 mb-6">
+          You saved {{ totalDeposits() | currency }} across
+          {{ selectedGoal()?.deposits?.length }} deposits. Finished before your
+          {{ selectedGoal()?.deadline | date: 'MMM d, y' }} deadline.
+        </p>
+
+        <div class="pt-4 grid grid-cols-[1fr_8fr]">
+          <div class="pr-4">
+            <p class="text-neutral-0 text-preset-2 font-semibold">
+              {{ selectedGoal()?.deposits?.length }}
+            </p>
+            <p class="text-neutral-0 text-preset-5 uppercase tracking-wide mt-2">Deposits</p>
+          </div>
+          <div class="border-l border-white/30 pl-8">
+            <p class="text-neutral-0 text-preset-2 font-semibold">
+              {{ totalDeposits() | currency }}
+            </p>
+            <p class="text-neutral-0 text-preset-5 uppercase tracking-wide mt-2">Total saved</p>
+          </div>
+        </div>
+      </div>
+    }
+
+    <div class="depositHistory">
+      <div class="flex justify-between items-center text-neutral-400 pb-2">
+        <p class="text-neutral-0 text-preset-4">Deposit history</p>
+        <p class="text-preset-6">{{ selectedGoal()?.deposits?.length }} deposits</p>
+      </div>
+      <div class="history">
+        @if (selectedGoal()?.deposits) {
+          @for (deposit of selectedGoal()?.deposits; track deposit) {
+            <div class="flex justify-between mt-4 border-t border-neutral-400 pt-4">
+              <div class="flex items-center justify-center gap-4">
+                <span class="bg-neutral-700 rounded-full p-2"
+                  ><img src="images/icon-arrow-down.svg" alt="arrow"
+                /></span>
+                <div>
+                  <h3 class="text-neutral-0 text-preset-6">{{ deposit.note }}</h3>
+                  <span class="text-neutral-300 text-preset-6">{{
+                    deposit.created_at | date: 'MMM d, y'
+                  }}</span>
+                </div>
+              </div>
+              <div class="amount flex items center">
+                <h3 class="text-preset-5 text-green-500 flex items-center">
+                  {{ deposit.amount | currency }}
+                </h3>
+              </div>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (showCreateGoal()) {
+  <app-create-goal
+    [visible]="showCreateGoal()"
+    (visibleChange)="viewCreateGoal($event)"
+    (emitCreateGoal)="createNewGoal($event)"
+  ></app-create-goal>
+}
+
+@if (showEditGoal() && !showModal()) {
+  <app-edit-goal
+    [visible]="showEditGoal()"
+    [selectedGoal]="selectedGoal()"
+    (visibleChange)="viewEditGoal($event)"
+    (emitEditGoal)="submitEditGoal($event)"
+  >
+  </app-edit-goal>
+}
+
+@if (showModalMessage()) {
+  <app-modal
+    [modalMessage]="showModalMessage()"
+    [showModal]="showModal()"
+    (showModalChange)="closeModals($event)"
+  ></app-modal>
+}
+
+@if (showDeleteModal()) {
+  <app-delete-modal
+    [title]="selectedGoal()!.name"
+    [showModal]="showDeleteModal()"
+    (showModalChange)="closeModals($event)"
+    (emitDelete)="deleteGoal()"
+  ></app-delete-modal>
+}

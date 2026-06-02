@@ -9,7 +9,7 @@ import { ButtonComponent } from '../button/button.component';
   styleUrl: './modal.component.css',
 })
 export class ModalComponent {
-  modalMessage = input<string>('');
+  modalMessage = input<string | null>('');
   showModal = input<boolean>(false);
   showModalChange = output<boolean>();
 

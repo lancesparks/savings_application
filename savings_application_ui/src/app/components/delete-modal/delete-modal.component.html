@@ -1,0 +1,34 @@
+<p-dialog
+  appendTo="body"
+  [modal]="true"
+  [visible]="showModal()"
+  [style]="{ width: '40rem' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="closeModal()"
+>
+  <ng-template pTemplate="header">
+    <h2 class="font-bold text-preset-4 text-neutral-0">Delete {{ title() }}?</h2>
+  </ng-template>
+
+  <p class="text-neutral-300 text-preset-5 border-b border-neutral-700 pb-4">
+    This will permanently delete this goal and all its deposit history. This cannot be undone.
+  </p>
+
+  <ng-template pTemplate="footer">
+    <div class="flex justify-end gap-3">
+      <button
+        class="bg-neutral-700 hover:bg-neutral-600 text-neutral-0 px-6 py-2 rounded-full cursor-pointer text-preset-5"
+        (click)="closeModal()"
+      >
+        Cancel
+      </button>
+      <button
+        class="bg-orange-500 hover:bg-red-500 text-neutral-900 px-6 py-2 rounded-full font-semibold cursor-pointer text-preset-5"
+        (click)="deleteGoal()"
+      >
+        Delete goal
+      </button>
+    </div>
+  </ng-template>
+</p-dialog>

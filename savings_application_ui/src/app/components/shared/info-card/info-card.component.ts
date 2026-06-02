@@ -1,8 +1,9 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-info-card',
-  imports: [],
+  imports: [CurrencyPipe],
   templateUrl: './info-card.component.html',
   styleUrl: './info-card.component.css',
   host: {
@@ -14,4 +15,6 @@ export class InfoCardComponent {
   cardData = input<string>('');
   completed = input<boolean>(false);
   featured = input<boolean>(true);
+  displayMoney = input<boolean>(false);
+  detailsPage = input(false);
 }

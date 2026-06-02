@@ -3,11 +3,11 @@
   [class]="
     variant() === 'secondary'
       ? 'bg-neutral-700 hover:bg-neutral-600 text-neutral-400'
-      : 'bg-orange-400 hover:bg-orange-500'
+      : 'bg-orange-400 hover:bg-orange-500 text-neutral-900'
   "
 >
   @if (icon()) {
-    <span><img class="brightness-0 invert opacity-60" [src]="icon()" alt="" /></span>
+    <span><img class="brightness-0 invert opacity-60 w-5 h-5" [src]="icon()" alt="" /></span>
   }
   {{ buttonText() }}
 </button>

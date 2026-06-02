@@ -18,10 +18,16 @@ export const routes: Routes = [
         (m) => m.ForgotPasswordComponent,
       ),
   },
+
   {
     path: 'dashboard',
     canActivate: [authGuard],
     loadComponent: () =>
       import('./components/dashboard/dashboard.component').then((m) => m.DashboardComponent),
+  },
+  {
+    path: 'details/:id',
+    loadComponent: () =>
+      import('./components/details/details.component').then((m) => m.DetailsComponent),
   },
 ];

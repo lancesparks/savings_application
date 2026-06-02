@@ -115,6 +115,42 @@
   --radius-full: 999px;
 }
 
+@layer utilities {
+  .text-preset-1 {
+    font-size: var(--text-preset-1);
+    line-height: var(--text-preset-1--line-height);
+    letter-spacing: var(--text-preset-1--letter-spacing);
+  }
+  .text-preset-2 {
+    font-size: var(--text-preset-2);
+    line-height: var(--text-preset-2--line-height);
+  }
+  .text-preset-3 {
+    font-size: var(--text-preset-3);
+    line-height: var(--text-preset-3--line-height);
+    letter-spacing: var(--text-preset-3--letter-spacing);
+  }
+  .text-preset-4 {
+    font-size: var(--text-preset-4);
+    line-height: var(--text-preset-4--line-height);
+    letter-spacing: var(--text-preset-4--letter-spacing);
+  }
+  .text-preset-5 {
+    font-size: var(--text-preset-5);
+    line-height: var(--text-preset-5--line-height);
+    letter-spacing: var(--text-preset-5--letter-spacing);
+  }
+  .text-preset-6 {
+    font-size: var(--text-preset-6);
+    line-height: var(--text-preset-6--line-height);
+    letter-spacing: var(--text-preset-6--letter-spacing);
+  }
+  .text-preset-7 {
+    font-size: var(--text-preset-7);
+    line-height: var(--text-preset-7--line-height);
+  }
+}
+
 @layer base {
   body {
     @apply bg-black text-white;
@@ -228,7 +264,7 @@
   border: 1px solid #3a3a3a !important;
   border-radius: 8px !important;
   color: white !important;
-  padding: 0 2.5rem !important;
+  padding-left: 1rem !important;
   outline: none !important;
   cursor: pointer !important;
 }
@@ -240,4 +276,9 @@
 .p-checkbox-checked .p-checkbox-box {
   border-color: #f97316 !important;
   background: #f97316 !important;
+}
+
+.p-popover {
+  background-color: #101010 !important;
+  border-radius: 8px;
 }

@@ -1,45 +1,52 @@
 @if (goal()) {
   <div
-    class="rounded-xl p-6 flex flex-col gap-4 cursor-pointer transition-colors"
+    class="h-full rounded-xl p-6 flex flex-col gap-4 cursor-pointer transition-colors border border-transparent hover:border-orange-500 transition-colors cursor-pointer"
     [class]="featured() ? 'bg-orange-500' : 'bg-neutral-800'"
+    [ngClass]="{ 'justify-between': isTall() }"
   >
     <div class="flex items-center justify-between">
-      <p [class]="featured() ? 'text-white' : 'text-neutral-400'" class="text-sm">
+      <p [class]="featured() ? 'text-white' : 'text-neutral-400'" class="text-preset-5">
         {{ goal().name }}
       </p>
-      @if (completed()) {
-        <span class="text-xs bg-green-500 text-white px-2 py-1 rounded-full">COMPLETE</span>
+      @if (goalCompleted()) {
+        <span
+          class="border border-green-500 text-green-500 text-preset-7 font-semibold px-3 py-1 rounded-full tracking-wider"
+        >
+          COMPLETE
+        </span>
       }
     </div>
 
-    <h2
-      class="text-4xl font-bold"
-      [class]="featured() ? 'text-white' : completed() ? 'text-green-500' : 'text-orange-500'"
-    >
-      {{ (totalDeposits()! / goal().target) * 100 | number: '1.0-0' }}%
-    </h2>
+    <section class="flex flex-col gap-4">
+      <h2
+        class="text-4xl font-bold"
+        [class]="featured() ? 'text-white' : goalCompleted() ? 'text-green-500' : 'text-orange-500'"
+      >
+        {{ (totalDeposits()! / goal().target) * 100 | number: '1.0-0' }}%
+      </h2>
 
-    <div class="w-full h-1 rounded-full" [class]="featured() ? 'bg-white/30' : 'bg-neutral-600'">
+      <div class="w-full h-1 rounded-full" [class]="featured() ? 'bg-white/30' : 'bg-neutral-600'">
+        <div
+          class="h-1 rounded-full max-w-full"
+          [class]="featured() ? 'bg-white' : goalCompleted() ? 'bg-green-500' : 'bg-orange-500'"
+          [style.width.%]="(totalDeposits()! / goal().target) * 100"
+        ></div>
+      </div>
+
       <div
-        class="h-1 rounded-full"
-        [class]="featured() ? 'bg-white' : completed() ? 'bg-green-500' : 'bg-orange-500'"
-        [style.width.%]="(totalDeposits()! / goal().target) * 100"
-      ></div>
-    </div>
+        class="flex items-center gap-2 text-xs"
+        [class]="featured() ? 'text-white/70' : 'text-neutral-400'"
+      >
+        <span>${{ totalDeposits() }} of ${{ goal().target }}</span>
 
-    <div
-      class="flex items-center gap-2 text-xs"
-      [class]="featured() ? 'text-white/70' : 'text-neutral-400'"
-    >
-      <span>${{ totalDeposits() }} of ${{ goal().target }}</span>
-
-      @if (goal().deadline) {
-        <span>•</span>
-        <span>Due {{ goal().deadline | date: 'dd MMM yyyy' }}</span>
-      } @else {
-        <span>•</span>
-        <span>No deadline</span>
-      }
-    </div>
+        @if (goal().deadline) {
+          <span>•</span>
+          <span>Due {{ goal().deadline | date: 'dd MMM yyyy' }}</span>
+        } @else {
+          <span>•</span>
+          <span>No deadline</span>
+        }
+      </div>
+    </section>
   </div>
 }

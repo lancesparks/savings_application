@@ -1,18 +1,23 @@
 <div class="flex flex-col gap-2">
-  <p>{{ label() }}</p>
+  <p class="color-neutral-0 text-preset-5">{{ label() }}</p>
   <div
     class="flex items-center gap-3 px-4 h-[54px] w-full bg-neutral-700 border border-neutral-500 rounded-[6px]"
   >
     @if (control()) {
+      @if (isMoney()) {
+        <span class="text-neutral-400">$</span>
+      }
       <input
-        class="bg-transparent text-neutral-0 outline-none w-full text-preset-5"
+        class="bg-transparent text-neutral-0 outline-none w-full text-preset-5 placeholder-neutral-300"
+        [placeholder]="placeHolder()"
         [type]="label() === 'Password' && !showPassword() ? 'password' : 'text'"
         (keydown)="onKeyDown($event)"
         [formControl]="control()!"
       />
     } @else {
       <input
-        class="bg-transparent text-neutral-0 outline-none w-full text-preset-5"
+        class="bg-transparent text-neutral-0 outline-none w-full text-preset-5 placeholder-neutral-300"
+        [placeholder]="placeHolder()"
         [type]="label() === 'Password' && !showPassword() ? 'password' : 'text'"
       />
     }
@@ -25,10 +30,10 @@
 
   @if (control()?.invalid && submitted()) {
     @if (control()?.hasError('required')) {
-      <span class="text-red-500 text-sm">This field is required</span>
+      <span class="text-red-500 text-preset-5">This field is required</span>
     }
     @if (control()?.hasError('email')) {
-      <span class="text-red-500 text-sm">Please enter a valid email address</span>
+      <span class="text-red-500 text-preset-5">Please enter a valid email address</span>
     }
   }
 </div>

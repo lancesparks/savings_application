@@ -14,7 +14,7 @@
       <app-input
         label="Goal Name"
         placeHolder="e.g. MacBook Pro M4"
-        [control]="createGoalForm.controls.name"
+        [control]="editGoalForm.controls.name"
       ></app-input>
     </div>
 
@@ -23,16 +23,7 @@
       <app-input
         label="Target amount"
         placeHolder="0.00"
-        [control]="createGoalForm.controls.target"
-        [numericOnly]="true"
-      ></app-input>
-    </div>
-
-    <div class="flex flex-col gap-2">
-      <app-input
-        label="Current amount"
-        placeHolder="0.00"
-        [control]="createGoalForm.controls.initial_amount"
+        [control]="editGoalForm.controls.target"
         [numericOnly]="true"
       ></app-input>
     </div>
@@ -42,7 +33,7 @@
       <label class="text-neutral-0 text-preset-5">Deadline (optional)</label>
 
       <p-datepicker
-        [formControl]="createGoalForm.controls.deadline"
+        [formControl]="editGoalForm.controls.deadline"
         [selectOtherMonths]="true"
         [iconDisplay]="'input'"
         [showIcon]="true"
@@ -55,14 +46,14 @@
       <app-checkbox
         checkboxLabel="Featured"
         checkboxID="featured"
-        [control]="createGoalForm.controls.is_featured"
+        [control]="editGoalForm.controls.is_featured"
       ></app-checkbox>
     </div>
 
     <!-- Buttons -->
     <div class="flex gap-3 justify-end pt-2">
       <app-button buttonText="Cancel" variant="secondary" (click)="closeModal()" />
-      <app-button buttonText="Create goal" (click)="createNewGoal()" />
+      <app-button buttonText="Save changes" (click)="editGoal()" />
     </div>
   </div>
 </p-dialog>

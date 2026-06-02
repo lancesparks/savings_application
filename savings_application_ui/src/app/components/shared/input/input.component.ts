@@ -1,4 +1,4 @@
-import { Component, input, model, output, signal } from '@angular/core';
+import { Component, effect, input, model, output, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @Component({
@@ -9,12 +9,13 @@ import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
 })
 export class InputComponent {
   label = input<string>('');
-  placeHolder = input<string | null>(null);
+  placeHolder = input<string>('');
   control = input<FormControl>();
   numericOnly = input<boolean>(false);
   submitted = input<boolean>(false);
   showPassword = signal(false);
   emitForgotPassword = output<boolean>();
+  isMoney = input<boolean>(false);
 
   forgotPassword() {
     this.emitForgotPassword.emit(true);
@@ -25,7 +26,7 @@ export class InputComponent {
   }
 
   onKeyDown(event: KeyboardEvent) {
-    if (!this.numericOnly()) return;
+    if (!this.numericOnly() || !this.control()?.value) return;
 
     const allowed = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
     if (allowed.includes(event.key)) return;
@@ -35,14 +36,14 @@ export class InputComponent {
       return;
     }
 
-    const currentValue: string = this.control()?.value ?? '';
+    const currentValue: string = this.control()?.value.toString() ?? '';
 
     if (event.key === '.' && currentValue.includes('.')) {
       event.preventDefault();
       return;
     }
 
-    const decimalIndex = currentValue.indexOf('.');
+    const decimalIndex = currentValue?.indexOf('.');
     if (decimalIndex !== -1 && currentValue.length - decimalIndex > 2) {
       event.preventDefault();
     }

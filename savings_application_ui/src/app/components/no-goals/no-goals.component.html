@@ -6,8 +6,8 @@
 
   <!-- Text -->
   <div class="flex flex-col items-center gap-2 text-center">
-    <h3 class="text-white font-semibold text-xl">No goals yet</h3>
-    <p class="text-neutral-400 text-sm max-w-xs">
+    <h3 class="font-semibold text-preset-2 text-neutral-0">No goals yet</h3>
+    <p class="text-neutral-300 text-preset-5 max-w-xs">
       Start saving for something that matters. Create your first goal and track your progress.
     </p>
   </div>
@@ -17,7 +17,7 @@
     class="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 transition-colors text-white font-medium px-6 py-3 rounded-full cursor-pointer mt-2"
     (click)="createGoal.emit(true)"
   >
-    <span>+</span>
-    <span>Create your first goal</span>
+    <span class="text-neutral-900 text-xl">+</span>
+    <span class="text-neutral-900 text-preset-5">Create your first goal</span>
   </button>
 </div>
